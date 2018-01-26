@@ -761,17 +761,13 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
         continue;
       }
 
-      $default_configuration_value = $this->getDefaultConfigurationValue($configuration_key);
-
-      // If configuration value set to 'default' use the default value.
-      if ($configuration_value === 'default') {
-        $configuration_value = $default_configuration_value;
-      }
-
-      // If configuration value is empty use global default value for certain
-      // header related configuration.
-      if (!$configuration_value && $default_configuration_value && in_array($configuration_key, ['reply_to', 'return_path', 'sender_mail', 'sender_name'])) {
-        $configuration_value = $default_configuration_value;
+      // Is configuration value set to 'default' use the default value.
+      $is_default_configuration = ($configuration_value === 'default');
+      // Determine is configuration value but we should still use
+      // the default value.
+      $is_global_configuration = (!$configuration_value && in_array($configuration_key, ['reply_to', 'return_path', 'sender_mail', 'sender_name']));
+      if ($is_default_configuration || $is_global_configuration) {
+        $configuration_value = $this->getDefaultConfigurationValue($configuration_key);
       }
 
       // Set email addresses.
