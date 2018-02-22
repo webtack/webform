@@ -695,20 +695,18 @@ class WebformElementBase extends PluginBase implements WebformElementInterface {
 
       $type = $element['#type'];
 
-      // Get and set the element's default #element_validate property so that
-      // it is not skipped when custom callbacks are added to #element_validate.
-      // @see \Drupal\Core\Render\Element\Color
-      // @see \Drupal\Core\Render\Element\Number
-      // @see \Drupal\Core\Render\Element\Email
-      // @see \Drupal\Core\Render\Element\MachineName
-      // @see \Drupal\Core\Render\Element\Url
-      $element_validate = $this->elementInfo->getInfoProperty($type, '#element_validate', [])
-        ?: $this->elementInfo->getInfoProperty("webform_$type", '#element_validate', []);
-      if (!empty($element['#element_validate'])) {
-        $element['#element_validate'] = array_merge($element_validate, $element['#element_validate']);
-      }
-      else {
-        $element['#element_validate'] = $element_validate;
+      // Get and set the element's default callbacks property so that
+      // it is not skipped when custom callbacks are added.
+      $callbacks = ['#pre_render', '#element_validate'];
+      foreach ($callbacks as $callback) {
+        $callback_property = $this->elementInfo->getInfoProperty($type, $callback, [])
+          ?: $this->elementInfo->getInfoProperty("webform_$type", $callback, []);
+        if (!empty($element[$callback])) {
+          $element[$callback] = array_merge($callback_property, $element[$callback]);
+        }
+        else {
+          $element[$callback] = $callback_property;
+        }
       }
 
       // Add webform element #minlength, #unique, and/or #multiple
