@@ -21,7 +21,6 @@ use Drupal\webform\WebformSubmissionInterface;
  *   category = @Translation("Options elements"),
  *   multiline = TRUE,
  *   composite = TRUE,
- *   states_wrapper = TRUE,
  * )
  */
 class WebformLikert extends WebformElementBase {

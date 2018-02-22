@@ -661,9 +661,6 @@ function webform_process_states(array &$elements, $key = '#attributes') {
   if (empty($elements[$key]['class']) || !WebformArrayHelper::inArray(['js-form-item', 'js-form-submit', 'js-form-wrapper'], $elements[$key]['class'])) {
     $elements[$key]['class'][] = 'js-form-item';
   }
-
-  $elements['#_webform_states'] = $elements['#states'];
-  unset($elements['#states']);
 }
 
 /******************************************************************************/
