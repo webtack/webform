@@ -15,7 +15,6 @@ use Drupal\webform\WebformSubmissionInterface;
  *   description = @Translation("Provides a form element to collect a person's full name."),
  *   multiline = TRUE,
  *   composite = TRUE,
- *   states_wrapper = TRUE,
  * )
  */
 class WebformName extends WebformCompositeBase {

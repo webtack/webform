@@ -840,18 +840,48 @@ class WebformElementBase extends PluginBase implements WebformElementInterface {
    *   An element.
    */
   protected function prepareWrapper(array &$element) {
+    $class = get_class($this);
+
     // Fix #states wrapper.
     if ($this->pluginDefinition['states_wrapper']) {
-      WebformElementHelper::fixStatesWrapper($element);
+      $element['#pre_render'][] = [$class, 'preRenderFixStatesWrapper'];
     }
 
     // Add flex(box) wrapper.
     if (!empty($element['#webform_parent_flexbox'])) {
-      $flex = (isset($element['#flex'])) ? $element['#flex'] : 1;
-      $element += ['#prefix' => '', '#suffix' => ''];
-      $element['#prefix'] = '<div class="webform-flex webform-flex--' . $flex . '"><div class="webform-flex--container">' . $element['#prefix'];
-      $element['#suffix'] = $element['#suffix'] . '</div></div>';
+      $element['#pre_render'][] = [$class, 'preRenderFixFlexboxWrapper'];
     }
+  }
+
+  /**
+   * Fix state wrapper.
+   *
+   * @param array $element
+   *   An element.
+   *
+   * @return array
+   *   An element with #states added to the #prefix and #suffix.
+   */
+  public static function preRenderFixStatesWrapper(array $element) {
+    WebformElementHelper::fixStatesWrapper($element);
+    return $element;
+  }
+
+  /**
+   * Fix flexbox wrapper.
+   *
+   * @param array $element
+   *   An element.
+   *
+   * @return array
+   *   An element with flexbox wrapper added to the #prefix and #suffix.
+   */
+  public static function preRenderFixFlexboxWrapper(array $element) {
+    $flex = (isset($element['#flex'])) ? $element['#flex'] : 1;
+    $element += ['#prefix' => '', '#suffix' => ''];
+    $element['#prefix'] = '<div class="webform-flex webform-flex--' . $flex . '"><div class="webform-flex--container">' . $element['#prefix'];
+    $element['#suffix'] = $element['#suffix'] . '</div></div>';
+    return $element;
   }
 
   /**

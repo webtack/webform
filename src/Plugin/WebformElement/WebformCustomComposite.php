@@ -16,7 +16,6 @@ use Drupal\webform\WebformSubmissionInterface;
  *   category = @Translation("Composite elements"),
  *   multiline = TRUE,
  *   composite = TRUE,
- *   states_wrapper = TRUE,
  * )
  */
 class WebformCustomComposite extends WebformCompositeBase {
