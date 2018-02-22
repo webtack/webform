@@ -351,7 +351,7 @@ class WebformSubmissionConditionsValidatorTest extends WebformTestBase {
 
     // Check multiple composite with custom error.
     $this->assertRaw("Custom error message for &#039;last&#039; element.");
-    $this->assertRaw('<input data-drupal-selector="edit-webform-name-multiple-items-0-item-last" type="text" id="edit-webform-name-multiple-items-0-item-last" name="webform_name_multiple[items][0][_item_][last]" value="" size="60" maxlength="255" class="form-text required error" required="required" aria-required="true" aria-invalid="true" />');
+    $this->assertRaw('<input data-drupal-selector="edit-webform-name-multiple-items-0-item-last" type="text" id="edit-webform-name-multiple-items-0-item-last" name="webform_name_multiple[items][0][_item_][last]" value="" size="60" maxlength="255" class="form-text error" aria-invalid="true" data-drupal-states="{&quot;required&quot;:{&quot;:input[name=\u0022webform_name_multiple_trigger\u0022]&quot;:{&quot;checked&quot;:true}}}" />');
 
     // Check multiple table composite.
     $this->assertRaw('Last field is required.');

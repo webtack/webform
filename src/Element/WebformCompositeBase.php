@@ -71,9 +71,6 @@ abstract class WebformCompositeBase extends FormElement implements WebformCompos
     $class_name = str_replace('_', '-', $element['#type']);
     static::setAttributes($element, ['js-' . $class_name, $class_name]);
 
-    // Process states.
-    webform_process_states($element, '#wrapper_attributes');
-
     return $element;
   }
 

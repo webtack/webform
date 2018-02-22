@@ -13,6 +13,7 @@ namespace Drupal\webform\Plugin\WebformElement;
  *   hidden = TRUE,
  *   multiline = TRUE,
  *   composite = TRUE,
+ *   states_wrapper = TRUE,
  * )
  */
 class WebformCreditCard extends WebformCompositeBase {
