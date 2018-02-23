@@ -897,6 +897,11 @@ class WebformElementBase extends PluginBase implements WebformElementInterface {
     $element['#element'] = $element;
     // Remove properties that should only be applied to the parent element.
     $element['#element'] = array_diff_key($element['#element'], array_flip(['#default_value', '#description', '#description_display', '#required', '#required_error', '#states', '#wrapper_attributes', '#prefix', '#suffix', '#element', '#tags', '#multiple']));
+    // Propagate #states to sub element.
+    // @see \Drupal\webform\Element\WebformCompositeBase::processWebformComposite
+    if (isset($element['#states'])) {
+      $element['#element']['#_webform_states'] = $element['#states'];
+    }
     // Always make the title invisible.
     $element['#element']['#title_display'] = 'invisible';
 
